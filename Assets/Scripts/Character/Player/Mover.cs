@@ -15,12 +15,6 @@ public class Mover : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _characterFacing = GetComponentInChildren<CharacterFacing>(true);
-
-        if (_inputReader == null)
-            throw new InvalidOperationException($"{nameof(Mover)} requires {nameof(InputReader)}.");
-
-        if (_characterFacing == null)
-            throw new InvalidOperationException($"{nameof(Mover)} requires {nameof(CharacterFacing)} in children.");
     }
 
     private void OnEnable()

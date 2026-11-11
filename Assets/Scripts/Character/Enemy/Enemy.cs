@@ -1,3 +1,4 @@
+
 using System;
 using UnityEngine;
 
@@ -30,9 +31,9 @@ public class Enemy : MonoBehaviour
         _health.HealthChanged -= OnHealthChanged;
     }
 
-    public void SetTarget(Transform target)
+    public void Initialize(Transform player)
     {
-        _follower.SetTarget(target);
+        _follower.Initialize(player);
     }
 
     public void Restore()

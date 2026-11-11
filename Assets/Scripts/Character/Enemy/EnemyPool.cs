@@ -1,9 +1,9 @@
+
 using UnityEngine;
 
 public class EnemyPool : GenericPool<Enemy, EnemySpawnConfigSO>
 {
     [SerializeField] private EnemySpawnConfigSO[] _configs;
-    [SerializeField] private Transform _target;
 
     private void Awake()
     {
@@ -24,7 +24,6 @@ public class EnemyPool : GenericPool<Enemy, EnemySpawnConfigSO>
     {
         enemy.Died += OnEnemyDied;
         enemy.Restore();
-        enemy.SetTarget(_target);
     }
 
     protected override void ReturnToPool(Enemy enemy)

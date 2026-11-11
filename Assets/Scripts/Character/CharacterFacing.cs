@@ -1,8 +1,9 @@
+
 using UnityEngine;
 
 public class CharacterFacing : MonoBehaviour
 {
-    private const float DirectionThreshold = 0.001f;
+    private const float DirectionThreshold = 0.15f;
 
     private Vector3 _initialScale;
     private Vector2 _facingDirection = Vector2.right;
@@ -16,10 +17,13 @@ public class CharacterFacing : MonoBehaviour
 
     public void SetDirection(Vector2 direction)
     {
-        if (Mathf.Abs(direction.x) <= DirectionThreshold && Mathf.Abs(direction.y) <= DirectionThreshold)
+        if (Mathf.Abs(direction.x) <= DirectionThreshold)
             return;
 
-        bool faceRight = Mathf.Abs(direction.x) > DirectionThreshold && direction.x > 0f;
+        bool faceRight = direction.x > 0f;
+
+        if (faceRight == (_facingDirection == Vector2.right))
+            return;
 
         Vector3 scale = _initialScale;
         scale.x = Mathf.Abs(_initialScale.x) * (faceRight ? 1f : -1f);

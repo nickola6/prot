@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemySpawnConfigSO _config;
     [SerializeField] private EnemyPool _pool;
+    [SerializeField] private Transform _player;
 
     private Transform _transform;
     private Coroutine _spawnRoutine;
@@ -12,6 +15,15 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         _transform = transform;
+
+        if (_config == null)
+            throw new InvalidOperationException($"{nameof(EnemySpawner)} requires Config.");
+
+        if (_pool == null)
+            throw new InvalidOperationException($"{nameof(EnemySpawner)} requires EnemyPool.");
+
+        if (_player == null)
+            throw new InvalidOperationException($"{nameof(EnemySpawner)} requires Player reference.");
     }
 
     private void Start()
@@ -47,7 +59,8 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < _config.SpawnCount; i++)
         {
-            _pool.Get(_config, _transform);
+            Enemy enemy = _pool.Get(_config, _transform);
+            enemy.Initialize(_player);
 
             if (i < _config.SpawnCount - 1)
                 yield return new WaitForSeconds(_config.SpawnInterval);

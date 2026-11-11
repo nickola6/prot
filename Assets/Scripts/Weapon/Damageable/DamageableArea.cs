@@ -41,7 +41,6 @@ public class DamageableArea : DetectionArea
         float closestDistance = float.MaxValue;
 
         foreach (Health target in _targets)
-
             if (target != null)
             {
                 float distance = (target.transform.position - transform.position).sqrMagnitude;
